@@ -1,0 +1,37 @@
+CREATE TABLE UserInfo(
+   ID integer PRIMARY KEY  autoincrement,
+   user           CHAR(50)    NOT NULL,
+   passWord       CHAR(50)    NOT NULL,
+   pinCode        CHAR(50)    NOT NULL,
+   createtime    TimeStamp NOT NULL default(datetime(CURRENT_TIMESTAMP,'localtime')),
+   updatetime    TimeStamp NOT NULL default(datetime(CURRENT_TIMESTAMP,'localtime')),
+   logintoken    CHAR(100)    NOT NULL
+);
+
+INSERT INTO UserInfo(user, passWord, pinCode, logintoken) values("qunzai","123456","1234","333")
+
+
+CREATE TABLE RecordIncome(
+   ID integer PRIMARY KEY  autoincrement,
+   userId           CHAR(50)    NOT NULL,
+   amount           CHAR(50)    NOT NULL,
+   spendType        CHAR(50)    NOT NULL,
+   spendTime        CHAR(50)    NOT NULL,
+   remark           CHAR(200)    NOT NULL,
+   createtime    TimeStamp NOT NULL default(datetime(CURRENT_TIMESTAMP,'localtime')),
+   updatetime    TimeStamp NOT NULL default(datetime(CURRENT_TIMESTAMP,'localtime'))
+);
+
+INSERT INTO RecordIncome(userId, amount, spendType, spendTime, remark) values("1","300","2","1762170156","洗衣服")
+
+
+CREATE TABLE RecordContent(
+   ID integer PRIMARY KEY  autoincrement,
+   userId           CHAR(50)    NOT NULL,
+   content          CHAR(1000)    NOT NULL,
+   postTime        CHAR(50)    NOT NULL,
+   updateTime        CHAR(50)    NOT NULL,
+   createtime    TimeStamp NOT NULL default(datetime(CURRENT_TIMESTAMP,'localtime'))
+);
+
+INSERT INTO RecordContent(userId, content, postTime, updateTime) values("1","第一条内容","1762170156","1762170156")
