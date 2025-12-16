@@ -44,8 +44,8 @@ func UpdateRecordContent(condition string, update_data string) (isSuccess bool, 
 func DeleteRecordContent(condition string) (isSuccess bool, msg string) {
 	ret := ""
 	isSuccess_ := false
-	stmt, err := dbs.Prepare("Delete RecordContent where " + condition + ";")
-	fmt.Printf("Delete RecordContent where " + condition)
+	stmt, err := dbs.Prepare("Delete from RecordContent where " + condition + ";")
+	fmt.Printf("Delete from RecordContent where " + condition)
 	res, err := stmt.Exec()
 	if err != nil {
 		ret = "执行失败"

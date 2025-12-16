@@ -60,15 +60,16 @@ func CommonUpdateUserInfo(req *exclusive_base_qz.CommonUpdateUserInfoRequest) *e
 }
 
 func CommonLogin(req *exclusive_base_qz.CommonLoginRequest) *exclusive_base_qz.CommonLoginResponse {
-
 	cookie := ""
 	resp := &exclusive_base_qz.CommonLoginResponse{
 		Token:    &cookie,
 		BaseResp: util.ProcessBaseResp(0, ""),
 	}
-	if CheckIsLoginIn(*req.Token) {
-		resp.Token = req.Token
-		return resp
+	if req.Token != nil {
+		if CheckIsLoginIn(*req.Token) {
+			resp.Token = req.Token
+			return resp
+		}
 	}
 
 	isCheckPass, err := CheckAccount(req)
@@ -76,7 +77,6 @@ func CommonLogin(req *exclusive_base_qz.CommonLoginRequest) *exclusive_base_qz.C
 		resp.BaseResp = util.ProcessBaseResp(1, err)
 	}
 	if isCheckPass {
-		fmt.Printf(*req.Token)
 		cookie = SetCookie(req)
 		resp.Token = &cookie
 	}

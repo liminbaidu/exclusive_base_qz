@@ -148,8 +148,9 @@ func QueryDiary(req *exclusive_base_qz.QueryDiaryRequest) *exclusive_base_qz.Que
 		pagelimit = fmt.Sprintf(" limit %s,%s", util.ToString(startPage), *req.Size)
 	}
 	RecordDiaryInfo := db.QueryRecordContent(condition + " order by createtime desc" + pagelimit)
+	allRecordDiaryInfo := db.QueryRecordContent("Id!=0")
 
-	total = util.ToString(len(RecordDiaryInfo))
+	total = util.ToString(len(allRecordDiaryInfo))
 	resp.Total = &total
 	for _, info := range RecordDiaryInfo {
 		DiaryInfo := &exclusive_base_qz.DiaryInfo{

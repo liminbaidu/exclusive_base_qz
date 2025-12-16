@@ -20,7 +20,7 @@ func CreateIncome(req *exclusive_base_qz.CreateIncomeRequest) *exclusive_base_qz
 	}
 	userinfo := GetUserInfoByToken(*req.Token)
 
-	isSuccess, _ := db.InsertRecordIncome(fmt.Sprintf("('%s','%s','%s','%s','%s')", userinfo[0].Id, *req.Amount, *req.SpendTime, *req.SpendTime, *req.Remark))
+	isSuccess, _ := db.InsertRecordIncome(fmt.Sprintf("('%s','%s','%s','%s','%s')", userinfo[0].Id, *req.Amount, *req.SpendType, *req.SpendTime, *req.Remark))
 	if !isSuccess {
 		resp.BaseResp = util.ProcessBaseResp(101, "Db操作失败, 请重试")
 		return resp
@@ -163,20 +163,13 @@ func QueryIncome(req *exclusive_base_qz.QueryIncomeRequest) *exclusive_base_qz.Q
 		pagelimit = fmt.Sprintf(" limit %s,%s", util.ToString(startPage), util.ToString(util.StrToInt64(*req.Size)-1))
 	}
 	RecordIncomeInfo := db.QueryRecordIncome(condition + " order by createtime desc" + pagelimit)
+	allRecordIncomeInfo := db.QueryRecordIncome("Id!=0")
 
-	total = util.ToString(len(RecordIncomeInfo))
+	total = util.ToString(len(allRecordIncomeInfo))
 	resp.Total = &total
 	IncomeCountWeek := map[string]string{}
 	IncomeCountMonth := map[string]string{}
-	for _, info := range RecordIncomeInfo {
-		IncomeInfo := &exclusive_base_qz.IncomeInfo{
-			Amount:    &info.Amount,
-			SpendType: &info.SpendType,
-			SpendTime: &info.SpendTime,
-			IncomeId:  &info.Id,
-			Remark:    &info.Remark,
-		}
-		IncomeInfoList = append(IncomeInfoList, IncomeInfo)
+	for _, info := range allRecordIncomeInfo {
 		IncomeCountWeekkey := UnixToWeek(util.StrToInt64(info.SpendTime))
 		IncomeCountMonthkey := UnixToMonth(util.StrToInt64(info.SpendTime))
 		if _, ok := IncomeCountWeek[IncomeCountWeekkey]; ok {
@@ -191,6 +184,16 @@ func QueryIncome(req *exclusive_base_qz.QueryIncomeRequest) *exclusive_base_qz.Q
 		} else {
 			IncomeCountMonth[IncomeCountMonthkey] = info.Amount
 		}
+	}
+	for _, info := range RecordIncomeInfo {
+		IncomeInfo := &exclusive_base_qz.IncomeInfo{
+			Amount:    &info.Amount,
+			SpendType: &info.SpendType,
+			SpendTime: &info.SpendTime,
+			IncomeId:  &info.Id,
+			Remark:    &info.Remark,
+		}
+		IncomeInfoList = append(IncomeInfoList, IncomeInfo)
 	}
 	resp.IncomeCount.Month = IncomeCountMonth
 	resp.IncomeCount.Week = IncomeCountWeek
