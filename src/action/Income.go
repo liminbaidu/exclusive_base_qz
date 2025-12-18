@@ -59,7 +59,7 @@ func UpdateIncome(req *exclusive_base_qz.UpdateIncomeRequest) *exclusive_base_qz
 		updateDataList = append(updateDataList, fmt.Sprintf("spendTime='%s'", *req.SpendTime))
 	}
 	if req.Remark != nil && *req.Remark != "" {
-		updateData = updateData + fmt.Sprintf("remark='%s'", *req.Remark)
+		updateDataList = append(updateDataList, fmt.Sprintf("remark='%s'", *req.Remark))
 	}
 
 	if len(updateDataList) > 0 {
