@@ -5,6 +5,7 @@ namespace go exclusive_base_qz
 
 service ItemService {
     CommonLoginResponse CommonLogin (1: CommonLoginRequest req)
+    CommonIsLoginResponse CommonIsLogin (1: CommonIsLoginRequest req)
     CommonUpdateUserInfoResponse CommonUpdateUserInfo (1: CommonUpdateUserInfoRequest req)
     CommonSignOutResponse CommonSignOut (1: CommonSignOutRequest req)
 
@@ -29,6 +30,15 @@ struct CommonLoginRequest {
 struct CommonLoginResponse {
     1: optional string token,
    255: optional base.BaseResp BaseResp,
+}
+
+struct CommonIsLoginRequest {
+    1: optional string token
+}
+
+struct CommonIsLoginResponse {
+    1: optional string isLogin,
+    255: optional base.BaseResp BaseResp,
 }
 
 struct CommonUpdateUserInfoRequest {

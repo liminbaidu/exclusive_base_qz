@@ -20,6 +20,13 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"CommonIsLogin": kitex.NewMethodInfo(
+		commonIsLoginHandler,
+		newItemServiceCommonIsLoginArgs,
+		newItemServiceCommonIsLoginResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 	"CommonUpdateUserInfo": kitex.NewMethodInfo(
 		commonUpdateUserInfoHandler,
 		newItemServiceCommonUpdateUserInfoArgs,
@@ -172,6 +179,24 @@ func newItemServiceCommonLoginArgs() interface{} {
 
 func newItemServiceCommonLoginResult() interface{} {
 	return exclusive_base_qz.NewItemServiceCommonLoginResult()
+}
+
+func commonIsLoginHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*exclusive_base_qz.ItemServiceCommonIsLoginArgs)
+	realResult := result.(*exclusive_base_qz.ItemServiceCommonIsLoginResult)
+	success, err := handler.(exclusive_base_qz.ItemService).CommonIsLogin(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newItemServiceCommonIsLoginArgs() interface{} {
+	return exclusive_base_qz.NewItemServiceCommonIsLoginArgs()
+}
+
+func newItemServiceCommonIsLoginResult() interface{} {
+	return exclusive_base_qz.NewItemServiceCommonIsLoginResult()
 }
 
 func commonUpdateUserInfoHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
@@ -369,6 +394,16 @@ func (p *kClient) CommonLogin(ctx context.Context, req *exclusive_base_qz.Common
 	_args.Req = req
 	var _result exclusive_base_qz.ItemServiceCommonLoginResult
 	if err = p.c.Call(ctx, "CommonLogin", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) CommonIsLogin(ctx context.Context, req *exclusive_base_qz.CommonIsLoginRequest) (r *exclusive_base_qz.CommonIsLoginResponse, err error) {
+	var _args exclusive_base_qz.ItemServiceCommonIsLoginArgs
+	_args.Req = req
+	var _result exclusive_base_qz.ItemServiceCommonIsLoginResult
+	if err = p.c.Call(ctx, "CommonIsLogin", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

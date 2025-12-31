@@ -29,6 +29,24 @@ func CommonLogin(r *ghttp.Request) string {
 	}
 	return string(obj)
 }
+func CommonIsLogin(r *ghttp.Request) string {
+
+	resp := &exclusive_base_qz.CommonIsLoginResponse{
+		BaseResp: util.ProcessBaseResp(0, ""),
+	}
+	req := &exclusive_base_qz.CommonIsLoginRequest{}
+
+	if err := r.Parse(req); err != nil {
+		resp.BaseResp = util.ProcessBaseResp(100, "请求解析失败")
+	}
+	resp = action.CommonIsLogin(req)
+
+	obj, err := json.Marshal(resp)
+	if err != nil {
+		resp.BaseResp = util.ProcessBaseResp(100, "返回转义失败")
+	}
+	return string(obj)
+}
 
 func CommonSignout(r *ghttp.Request) string {
 

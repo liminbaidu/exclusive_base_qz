@@ -138,6 +138,100 @@ var fieldIDToName_CommonLoginResponse = map[int16]string{
 	255: "BaseResp",
 }
 
+type CommonIsLoginRequest struct {
+	Token *string `thrift:"token,1,optional" frugal:"1,optional,string" json:"token,omitempty"`
+}
+
+func NewCommonIsLoginRequest() *CommonIsLoginRequest {
+	return &CommonIsLoginRequest{}
+}
+
+func (p *CommonIsLoginRequest) InitDefault() {
+}
+
+var CommonIsLoginRequest_Token_DEFAULT string
+
+func (p *CommonIsLoginRequest) GetToken() (v string) {
+	if !p.IsSetToken() {
+		return CommonIsLoginRequest_Token_DEFAULT
+	}
+	return *p.Token
+}
+func (p *CommonIsLoginRequest) SetToken(val *string) {
+	p.Token = val
+}
+
+func (p *CommonIsLoginRequest) IsSetToken() bool {
+	return p.Token != nil
+}
+
+func (p *CommonIsLoginRequest) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("CommonIsLoginRequest(%+v)", *p)
+}
+
+var fieldIDToName_CommonIsLoginRequest = map[int16]string{
+	1: "token",
+}
+
+type CommonIsLoginResponse struct {
+	IsLogin  *string        `thrift:"isLogin,1,optional" frugal:"1,optional,string" json:"isLogin,omitempty"`
+	BaseResp *base.BaseResp `thrift:"BaseResp,255,optional" frugal:"255,optional,base.BaseResp" json:"BaseResp,omitempty"`
+}
+
+func NewCommonIsLoginResponse() *CommonIsLoginResponse {
+	return &CommonIsLoginResponse{}
+}
+
+func (p *CommonIsLoginResponse) InitDefault() {
+}
+
+var CommonIsLoginResponse_IsLogin_DEFAULT string
+
+func (p *CommonIsLoginResponse) GetIsLogin() (v string) {
+	if !p.IsSetIsLogin() {
+		return CommonIsLoginResponse_IsLogin_DEFAULT
+	}
+	return *p.IsLogin
+}
+
+var CommonIsLoginResponse_BaseResp_DEFAULT *base.BaseResp
+
+func (p *CommonIsLoginResponse) GetBaseResp() (v *base.BaseResp) {
+	if !p.IsSetBaseResp() {
+		return CommonIsLoginResponse_BaseResp_DEFAULT
+	}
+	return p.BaseResp
+}
+func (p *CommonIsLoginResponse) SetIsLogin(val *string) {
+	p.IsLogin = val
+}
+func (p *CommonIsLoginResponse) SetBaseResp(val *base.BaseResp) {
+	p.BaseResp = val
+}
+
+func (p *CommonIsLoginResponse) IsSetIsLogin() bool {
+	return p.IsLogin != nil
+}
+
+func (p *CommonIsLoginResponse) IsSetBaseResp() bool {
+	return p.BaseResp != nil
+}
+
+func (p *CommonIsLoginResponse) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("CommonIsLoginResponse(%+v)", *p)
+}
+
+var fieldIDToName_CommonIsLoginResponse = map[int16]string{
+	1:   "isLogin",
+	255: "BaseResp",
+}
+
 type CommonUpdateUserInfoRequest struct {
 	Ping         *string `thrift:"ping,1,optional" frugal:"1,optional,string" json:"ping,omitempty"`
 	NewPassword_ *string `thrift:"new_password,2,optional" frugal:"2,optional,string" json:"new_password,omitempty"`
@@ -1915,6 +2009,8 @@ var fieldIDToName_DiaryInfo = map[int16]string{
 type ItemService interface {
 	CommonLogin(ctx context.Context, req *CommonLoginRequest) (r *CommonLoginResponse, err error)
 
+	CommonIsLogin(ctx context.Context, req *CommonIsLoginRequest) (r *CommonIsLoginResponse, err error)
+
 	CommonUpdateUserInfo(ctx context.Context, req *CommonUpdateUserInfoRequest) (r *CommonUpdateUserInfoResponse, err error)
 
 	CommonSignOut(ctx context.Context, req *CommonSignOutRequest) (r *CommonSignOutResponse, err error)
@@ -2009,6 +2105,82 @@ func (p *ItemServiceCommonLoginResult) String() string {
 }
 
 var fieldIDToName_ItemServiceCommonLoginResult = map[int16]string{
+	0: "success",
+}
+
+type ItemServiceCommonIsLoginArgs struct {
+	Req *CommonIsLoginRequest `thrift:"req,1" frugal:"1,default,CommonIsLoginRequest" json:"req"`
+}
+
+func NewItemServiceCommonIsLoginArgs() *ItemServiceCommonIsLoginArgs {
+	return &ItemServiceCommonIsLoginArgs{}
+}
+
+func (p *ItemServiceCommonIsLoginArgs) InitDefault() {
+}
+
+var ItemServiceCommonIsLoginArgs_Req_DEFAULT *CommonIsLoginRequest
+
+func (p *ItemServiceCommonIsLoginArgs) GetReq() (v *CommonIsLoginRequest) {
+	if !p.IsSetReq() {
+		return ItemServiceCommonIsLoginArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *ItemServiceCommonIsLoginArgs) SetReq(val *CommonIsLoginRequest) {
+	p.Req = val
+}
+
+func (p *ItemServiceCommonIsLoginArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *ItemServiceCommonIsLoginArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ItemServiceCommonIsLoginArgs(%+v)", *p)
+}
+
+var fieldIDToName_ItemServiceCommonIsLoginArgs = map[int16]string{
+	1: "req",
+}
+
+type ItemServiceCommonIsLoginResult struct {
+	Success *CommonIsLoginResponse `thrift:"success,0,optional" frugal:"0,optional,CommonIsLoginResponse" json:"success,omitempty"`
+}
+
+func NewItemServiceCommonIsLoginResult() *ItemServiceCommonIsLoginResult {
+	return &ItemServiceCommonIsLoginResult{}
+}
+
+func (p *ItemServiceCommonIsLoginResult) InitDefault() {
+}
+
+var ItemServiceCommonIsLoginResult_Success_DEFAULT *CommonIsLoginResponse
+
+func (p *ItemServiceCommonIsLoginResult) GetSuccess() (v *CommonIsLoginResponse) {
+	if !p.IsSetSuccess() {
+		return ItemServiceCommonIsLoginResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *ItemServiceCommonIsLoginResult) SetSuccess(x interface{}) {
+	p.Success = x.(*CommonIsLoginResponse)
+}
+
+func (p *ItemServiceCommonIsLoginResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *ItemServiceCommonIsLoginResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ItemServiceCommonIsLoginResult(%+v)", *p)
+}
+
+var fieldIDToName_ItemServiceCommonIsLoginResult = map[int16]string{
 	0: "success",
 }
 

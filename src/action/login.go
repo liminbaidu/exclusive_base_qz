@@ -82,6 +82,21 @@ func CommonLogin(req *exclusive_base_qz.CommonLoginRequest) *exclusive_base_qz.C
 	}
 	return resp
 }
+func CommonIsLogin(req *exclusive_base_qz.CommonIsLoginRequest) *exclusive_base_qz.CommonIsLoginResponse {
+	IsLogin := "false"
+	resp := &exclusive_base_qz.CommonIsLoginResponse{
+		IsLogin:  &IsLogin,
+		BaseResp: util.ProcessBaseResp(0, ""),
+	}
+	if req.Token != nil {
+		if CheckIsLoginIn(*req.Token) {
+			IsLogin = "true"
+			resp.IsLogin = &IsLogin
+			return resp
+		}
+	}
+	return resp
+}
 func CheckAccount(req *exclusive_base_qz.CommonLoginRequest) (checkResult bool, err string) {
 	isCheckPass := false
 	err = ""

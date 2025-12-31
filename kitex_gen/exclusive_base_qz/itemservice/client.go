@@ -12,6 +12,7 @@ import (
 // Client is designed to provide IDL-compatible methods with call-option parameter for kitex framework.
 type Client interface {
 	CommonLogin(ctx context.Context, req *exclusive_base_qz.CommonLoginRequest, callOptions ...callopt.Option) (r *exclusive_base_qz.CommonLoginResponse, err error)
+	CommonIsLogin(ctx context.Context, req *exclusive_base_qz.CommonIsLoginRequest, callOptions ...callopt.Option) (r *exclusive_base_qz.CommonIsLoginResponse, err error)
 	CommonUpdateUserInfo(ctx context.Context, req *exclusive_base_qz.CommonUpdateUserInfoRequest, callOptions ...callopt.Option) (r *exclusive_base_qz.CommonUpdateUserInfoResponse, err error)
 	CommonSignOut(ctx context.Context, req *exclusive_base_qz.CommonSignOutRequest, callOptions ...callopt.Option) (r *exclusive_base_qz.CommonSignOutResponse, err error)
 	CreateIncome(ctx context.Context, req *exclusive_base_qz.CreateIncomeRequest, callOptions ...callopt.Option) (r *exclusive_base_qz.CreateIncomeResponse, err error)
@@ -56,6 +57,11 @@ type kItemServiceClient struct {
 func (p *kItemServiceClient) CommonLogin(ctx context.Context, req *exclusive_base_qz.CommonLoginRequest, callOptions ...callopt.Option) (r *exclusive_base_qz.CommonLoginResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.CommonLogin(ctx, req)
+}
+
+func (p *kItemServiceClient) CommonIsLogin(ctx context.Context, req *exclusive_base_qz.CommonIsLoginRequest, callOptions ...callopt.Option) (r *exclusive_base_qz.CommonIsLoginResponse, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.CommonIsLogin(ctx, req)
 }
 
 func (p *kItemServiceClient) CommonUpdateUserInfo(ctx context.Context, req *exclusive_base_qz.CommonUpdateUserInfoRequest, callOptions ...callopt.Option) (r *exclusive_base_qz.CommonUpdateUserInfoResponse, err error) {

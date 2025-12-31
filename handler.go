@@ -79,3 +79,9 @@ func (s *ItemServiceImpl) QueryDiary(ctx context.Context, req *exclusive_base_qz
 	// TODO: Your code here...
 	return
 }
+
+// CommonIsLogin implements the ItemServiceImpl interface.
+func (s *ItemServiceImpl) CommonIsLogin(ctx context.Context, req *exclusive_base_qz.CommonIsLoginRequest) (resp *exclusive_base_qz.CommonIsLoginResponse, err error) {
+	// TODO: Your code here...
+	return
+}

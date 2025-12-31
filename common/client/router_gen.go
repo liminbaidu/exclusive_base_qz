@@ -15,6 +15,7 @@ func register(s *ghttp.Server) {
 	s.Group("/common", func(group *ghttp.RouterGroup) {
 		group.Middleware(MiddlewareCORS)
 		group.GET("/login", CommonLogin)
+		group.GET("/islogin", CommonIsLogin)
 		group.GET("/signout", CommonSignout)
 		group.GET("/updateUserInfo", CommonUpdateUserInfo)
 	})
@@ -36,6 +37,11 @@ func register(s *ghttp.Server) {
 
 func CommonLogin(r *ghttp.Request) {
 	resp := handler.CommonLogin(r)
+	r.Response.Writef(resp)
+}
+
+func CommonIsLogin(r *ghttp.Request) {
+	resp := handler.CommonIsLogin(r)
 	r.Response.Writef(resp)
 }
 
