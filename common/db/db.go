@@ -9,7 +9,7 @@ import (
 var dbs = ConnectDb()
 
 func ConnectDb() *sql.DB {
-	db, err := sql.Open("sqlite3", "./EXCLUSIVE_BASE_QZ.db")
+	db, err := sql.Open("sqlite3", "./../db/EXCLUSIVE_BASE_QZ.db")
 	checkErr(err)
 	return db
 }
